@@ -1,6 +1,6 @@
 # Chatbot App
 
-![Chatbot Banner](./assets/chatbot_banner.png)  
+![Chatbot Banner](./assests/main.png)  
 *An engaging and interactive chatbot that combines mathematical operations and general discussions.*
 
 ---
@@ -105,7 +105,7 @@ Chatbot_App/
 
 ## Screenshots
 
-![Chatbot Interface](./assets/chatbot_screenshot.png)  
+![Chatbot Interface](./assests/main2.png)  
 *Figure: Interactive chatbot menu with ANSI Shadow font.*
 
 ---
