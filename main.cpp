@@ -29,8 +29,6 @@ void displayFigletFont() {
 }
 
 void displayMenu() {
-    cout << "\n\t\t\t\033[93mWelcome to the Chatbot!\033[0m\n";
-    displayFigletFont();
     cout << "\nPlease choose a topic: \n";
     cout << "1. \033[94mMathematical operations\033[0m\n";
     cout << "2. \033[92mGeneral discussion\033[0m\n";
@@ -82,6 +80,8 @@ void handleUserChoice(const int choice, bool& exitProgram) {
 // This function initializes the chatbot by displaying the menu and handling user input.
 // The program runs in a loop until the user chooses to exit.
 int main() {
+    cout << "\n\t\t\t\033[93mWelcome to the Chatbot!\033[0m\n";
+    displayFigletFont();
     bool exitProgram = false;
     while (!exitProgram) {
         displayMenu();
