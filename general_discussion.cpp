@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <cctype>
 #include <random>
+#include <thread>
+#include <chrono>
 // Use the standard namespace
 using namespace std;
 
@@ -12,16 +14,14 @@ string cleanString(string input);
 void printAnswer(int randomChoice, const string& firstAnswer, const string& secondAnswer);
 void loadQuestions(array<string, 5>& questions);
 void loadAnswers(array<pair<string, string>, 5>& answers);
+void simulateTypingAnimation(const string& text);
 
 // Main function
 void generalDiscussion() {
-    // srand(time(nullptr)); // Seed for random number generation
-    // Create a random device and a random number generator
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution dis(0, 1);
-
-    // Load the first answer and second answer for the first question
+    int minRange = 0, maxRange = 1;
+    uniform_int_distribution dis(minRange, maxRange);
 
     // Array of questions
     array<string, 5> questions;
@@ -34,32 +34,29 @@ void generalDiscussion() {
 
     string userInput;
 
-    cout << "\033[93mChatbot: Hello! Type \033[34m'bye'\033[0m to exit.\n";
+    simulateTypingAnimation("\033[93mChatbot: Hello! Type \033[34m'bye'\033[0m to exit.\n");
 
-    // Start the conversation loop
-    do {
+    while (true) {
         cout << "You: ";
         getline(cin, userInput);
 
         // Exit condition if the user types 'bye'
         if (userInput == "bye") {
-            cout << "\033[93mChatbot: Goodbye!\033[0m" << endl;
+            simulateTypingAnimation("\033[93mChatbot: Goodbye!\033[0m\n");
             break;
         }
 
-        bool questionFound = false;
-
         // Clean the user input
         string cleanedInput = cleanString(userInput);
+        bool questionFound = false;
 
-        // Loop through the questions to find a match
+        // Process the input against questions
         for (int i = 0; i < questions.size(); ++i) {
             // Clean the question
             string cleanedQuestion = cleanString(questions[i]);
             // If the cleaned user input matches a cleaned question
-            if ( cleanedInput == cleanedQuestion) {
-                // Generate a random number between 0 and 1
-                // const int randomChoice = rand() % 2;
+            if (cleanedInput == cleanedQuestion) {
+                // Generate a random number between minRange and maxRange
                 const int randomChoice = dis(gen);
 
                 // Use switch to print the answer based on random choice
@@ -72,19 +69,30 @@ void generalDiscussion() {
 
         // If no match found, the chatbot doesn't understand
         if (!questionFound) {
-            cout << "Chatbot: Sorry, I don't understand that question." << endl;
+            simulateTypingAnimation("Chatbot: Sorry, I don't understand that question. Try asking something like 'What is your name?' or 'How are you?'\n");
         }
-
-    } while (userInput != "bye");  // Keep the chatbot running until 'bye' is entered
-
+    }
 }
+
+// Function to simulate random typing delay for each character
+void simulateTypingAnimation(const string& text) {
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dis(50, 70); // Random delay between 50ms to 70ms
+
+    for (char c : text) {
+        cout << c << flush;
+        this_thread::sleep_for(chrono::milliseconds(dis(gen)));
+    }
+}
+
 // Function to clean and format the input: make it lowercase and remove punctuation
 string cleanString(string input) {
     // Convert to lowercase
-    ranges::transform(input, input.begin(), ::tolower);
+    transform(input.begin(), input.end(), input.begin(), ::tolower);
 
     // Remove punctuation (including '?' and '!')
-    erase_if(input, ::ispunct);
+    input.erase(remove_if(input.begin(), input.end(), ::ispunct), input.end());
 
     return input;
 }
@@ -97,13 +105,13 @@ void printAnswer(const int randomChoice, const string& firstAnswer, const string
 
     switch (randomChoice) {
         case 0:
-            cout <<  "Chatbot: " << yellow << firstAnswer  << reset << endl;
+            simulateTypingAnimation(yellow + firstAnswer + reset + "\n");
             break;
         case 1:
-            cout <<  "Chatbot: " << yellow << secondAnswer << reset << endl;
+            simulateTypingAnimation(yellow + secondAnswer + reset + "\n");
             break;
         default:
-            cout << "Chatbot: Sorry, I don't understand." << endl;
+            simulateTypingAnimation("Chatbot: Sorry, an error occurred.\n");
     }
 }
 
