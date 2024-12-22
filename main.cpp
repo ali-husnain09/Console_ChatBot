@@ -9,28 +9,26 @@ using namespace std;
 void displayFigletFont() {
     cout << "\033[93m"; // yellow text
     cout << R"(
- ██████╗██╗  ██╗ █████╗ ████████╗██████╗  ██████╗ ████████╗     █████╗ ██████╗ ██████╗
-██╔════╝██║  ██║██╔══██╗╚══██╔══╝██╔══██╗██╔═══██╗╚══██╔══╝    ██╔══██╗██╔══██╗██╔══██╗
-██║     ███████║███████║   ██║   ██████╔╝██║   ██║   ██║       ███████║██████╔╝██████╔╝
-██║     ██╔══██║██╔══██║   ██║   ██╔══██╗██║   ██║   ██║       ██╔══██║██╔═══╝ ██╔═══╝
-╚██████╗██║  ██║██║  ██║   ██║   ██████╔╝╚██████╔╝   ██║       ██║  ██║██║     ██║
- ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═════╝  ╚═════╝    ╚═╝       ╚═╝  ╚═╝╚═╝     ╚═╝
+
+			 ██████╗██╗  ██╗ █████╗ ████████╗██████╗  ██████╗ ████████╗     █████╗ ██████╗ ██████╗
+			██╔════╝██║  ██║██╔══██╗╚══██╔══╝██╔══██╗██╔═══██╗╚══██╔══╝    ██╔══██╗██╔══██╗██╔══██╗
+			██║     ███████║███████║   ██║   ██████╔╝██║   ██║   ██║       ███████║██████╔╝██████╔╝
+			██║     ██╔══██║██╔══██║   ██║   ██╔══██╗██║   ██║   ██║       ██╔══██║██╔═══╝ ██╔═══╝
+			╚██████╗██║  ██║██║  ██║   ██║   ██████╔╝╚██████╔╝   ██║       ██║  ██║██║     ██║
+			 ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═════╝  ╚═════╝    ╚═╝       ╚═╝  ╚═╝╚═╝     ╚═╝
 
     )" << endl;
     cout << "\033[0m";
-    cout << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\033[94m[Design][Code] by [TRueKoders]\033[0m" << endl;
-    cout << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t[Version 2.0]" << endl;
+    cout << "\t\t\t\t\t\t\t\t\033[94m[Design][Code] by [TRueKoders]\033[0m" << endl;
+    cout << "\t\t\t\t\t\t\t\t[Version 2.0]" << endl;
     cout << "\033[92m[TEAM MEMBERS]\033[0m\n";
-    cout << "[1] ALI HUSNAIN (SOFTWARE ENGINEER)\n";
-    cout << "[2] ANSHRAH NADEEM (SOFTWARE ENGINEER)\n";
-    cout << "[---------------------------------------------------------------------------------------------]\n";
-    cout << "\033[91m[Disclaimer]: A simple chatbot that provides mathematical operations and general discussions.\033[0m\n";
-    // cout << "\t\t\t\t\t\t\t\t\t\t\t\t\t[GitHub Repository: https://github.com/TrueKoders/Chatbot]" << endl;
+    cout << "\t\t\t[1] ALI HUSNAIN (SOFTWARE ENGINEER)\n";
+    cout << "\t\t\t[2] ANSHRAH NADEEM (SOFTWARE ENGINEER)\n";
+    cout << "\t\t\t[---------------------------------------------------------------------------------------------]\n";
+    cout << "\033[91m\t\t\t[Disclaimer]: A simple chatbot that provides mathematical operations and general discussions.\033[0m\n";
 }
 
 void displayMenu() {
-    cout << "\033[93mWelcome to the Chatbot!\033[0m\n";
-    displayFigletFont();
     cout << "\nPlease choose a topic: \n";
     cout << "1. \033[94mMathematical operations\033[0m\n";
     cout << "2. \033[92mGeneral discussion\033[0m\n";
@@ -63,7 +61,7 @@ void handleUserChoice(const int choice, bool& exitProgram) {
         generalDiscussion();
         break;
     case 3:
-        cout << "\033[93mGoodbye!\033[0m\n";
+        cout << "\n\t\t\t\t\033[93mChatbot: Goodbye!\033[0m\n";
         exitProgram = true;
         break;
     default:
@@ -73,6 +71,8 @@ void handleUserChoice(const int choice, bool& exitProgram) {
 }
 
 int main() {
+    cout << "\033[93mWelcome to the Chatbot!\033[0m\n";
+    displayFigletFont();
     bool exitProgram = false;
     while (!exitProgram) {
         displayMenu();
