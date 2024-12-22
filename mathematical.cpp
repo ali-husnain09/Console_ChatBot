@@ -12,7 +12,7 @@
 using namespace std;
 
 // Function prototypes
-void simulateTypingAnimation(const string& text);
+void simulateTypingAnimations(const string& text);
 bool isValidNumber(const string& str);
 void parseInput(const string& input, vector<string>& words, vector<int>& numbers);
 string identifyOperation(const vector<string>& words, const vector<string>& additions, const vector<string>& subtractions, const vector<string>& multiplications, const vector<string>& divisions, vector<int>& numbers);
@@ -22,9 +22,9 @@ void mathematicalOperations();
 // Main function for mathematical operations
 void mathematicalOperations() {
     cout << "\033[93mChatbot:\033[0m ";
-    simulateTypingAnimation("Welcome to Mathematical Operations!\n");
+    simulateTypingAnimations("Welcome to Mathematical Operations!\n");
     cout << "\033[93mChatbot:\033[0m ";
-    simulateTypingAnimation("Type your query (e.g., 'add 5 and 3') or enter \033[34m'0'\033[0m to return to the main menu.\n");
+    simulateTypingAnimations("Type your query (e.g., 'add 5 and 3') or enter \033[34m'0'\033[0m to return to the main menu.\n");
 
     vector<string> additions = {"sum", "add", "plus", "addition", "+"};
     vector<string> subtractions = {"subtract", "minus", "-", "subtraction", "sub", "cut"};
@@ -42,7 +42,7 @@ void mathematicalOperations() {
 
         if (input == "0") {
             cout << "\033[93mChatbot:\033[0m ";
-            simulateTypingAnimation("Returning to the main menu...\n");
+            simulateTypingAnimations("Returning to the main menu...\n");
             break;
         }
 
@@ -52,7 +52,7 @@ void mathematicalOperations() {
 
         if (numbers.size() < 2) {
             cout << "\033[93mChatbot:\033[0m ";
-            simulateTypingAnimation("Error - Could not find two valid numbers in the input.\n");
+            simulateTypingAnimations("Error - Could not find two valid numbers in the input.\n");
             continue;
         }
 
@@ -60,13 +60,13 @@ void mathematicalOperations() {
 
         if (operation.empty()) {
             cout << "\033[93mChatbot:\033[0m ";
-            simulateTypingAnimation("Sorry, I didn't understand the operation.\n");
+            simulateTypingAnimations("Sorry, I didn't understand the operation.\n");
             continue;
         }
 
         if (operation == "Division" && find(numbers.begin() + 1, numbers.end(), 0) != numbers.end()) {
             cout << "\033[93mChatbot:\033[0m ";
-            simulateTypingAnimation("Error - Division by zero.\n");
+            simulateTypingAnimations("Error - Division by zero.\n");
             continue;
         }
 
@@ -84,12 +84,12 @@ void mathematicalOperations() {
         }
 
         cout << "\033[93mChatbot:\033[0m ";
-        simulateTypingAnimation(resultMessage.str());
+        simulateTypingAnimations(resultMessage.str());
     }
 }
 
 // Function definitions
-void simulateTypingAnimation(const string& text) {
+void simulateTypingAnimations(const string& text) {
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dis(50, 70); // Random delay between 50ms to 70ms
@@ -98,7 +98,7 @@ void simulateTypingAnimation(const string& text) {
         cout << c << flush; // Print each character without a newline
         this_thread::sleep_for(chrono::milliseconds(dis(gen))); // Wait for a random time
     }
-    this_thread::sleep_for(chrono::seconds(1)); // Add an additional 1-second delay after each message
+    this_thread::sleep_for(chrono::seconds(1)); // Add 1-second delay after each message
 }
 
 bool isValidNumber(const string& str) {
