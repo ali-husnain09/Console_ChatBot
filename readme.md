@@ -1,6 +1,6 @@
 # 🤖 Chatbot App
 
-![Screenshot from 2024-12-22 03-39-13](https://github.com/user-attachments/assets/b8a0b0f6-1df7-40eb-a751-af847fffadad)
+![banner](https://github.com/user-attachments/assets/0863e8c8-2996-4a4d-a7b1-316673274f6e)
 *An engaging & interactive 🤖 that combines 🧮 + 💬!*
 
 ---
@@ -71,7 +71,12 @@ This 🤖 comes with a colorful 🖍️ menu for easier use. It shows off 🖥�
 
 ## 📸 Screenshots
 
-![Screenshot from 2024-12-22 03-11-58](https://github.com/user-attachments/assets/67b34436-a5dc-489d-89d1-bac015ee4f0a)
+![general](https://github.com/user-attachments/assets/a0926663-4ed7-4d21-893f-756260d4a503)
+
+![errors](https://github.com/user-attachments/assets/18bf3033-892c-4b19-a971-1a2bc321ed38)
+
+![maths](https://github.com/user-attachments/assets/54da9701-08d4-403f-ab8c-32ebbed8c561)
+
 *Figure: 🤖 with a colorful 🖍️ menu.*
 
 ---
