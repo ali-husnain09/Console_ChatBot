@@ -111,15 +111,15 @@ void printAnswer(const int randomChoice, const string& firstAnswer, const string
 
     switch (randomChoice) {
         case 0:
-            cout << "\033[93mChatbot:\033[0m ";
+
             simulateTypingAnimation(yellow + firstAnswer + reset + "\n");
             break;
         case 1:
-            cout << "\033[93mChatbot:\033[0m ";
+
             simulateTypingAnimation(yellow + secondAnswer + reset + "\n");
             break;
         default:
-            cout << "\033[93mChatbot:\033[0m ";
+
             simulateTypingAnimation("Sorry, an error occurred.\n");
     }
 }
