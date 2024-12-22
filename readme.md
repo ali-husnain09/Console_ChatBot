@@ -80,11 +80,11 @@ Chatbot_App/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/Chatbot_App.git
+   git clone https://github.com/ali-husnain09/Console_ChatBot.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd Chatbot_App
+   cd Console_ChatBot
    ```
 3. Compile the program:
    ```bash
