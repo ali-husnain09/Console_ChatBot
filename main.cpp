@@ -29,6 +29,8 @@ void displayFigletFont() {
 }
 
 void displayMenu() {
+    cout << "\n\t\t\t\033[93mWelcome to the Chatbot!\033[0m\n";
+    displayFigletFont();
     cout << "\nPlease choose a topic: \n";
     cout << "1. \033[94mMathematical operations\033[0m\n";
     cout << "2. \033[92mGeneral discussion\033[0m\n";
@@ -40,10 +42,10 @@ int getUserChoice() {
     int choice;
     while (true) {
         cin >> choice;
-        if (cin.fail() || choice < 1 || choice > 3) {
+        if (cin.fail() || (choice < 1 || (choice > 3 && choice != 0))) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "\033[91mInvalid input. Please enter a valid choice (1-3): \033[0m";
+            cout << "\033[91mInvalid input. Please enter a valid choice (1-3, or 0 to return to the main menu): \033[0m";
         } else {
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
             break;
@@ -61,8 +63,14 @@ void handleUserChoice(const int choice, bool& exitProgram) {
         generalDiscussion();
         break;
     case 3:
-        cout << "\n\t\t\t\t\033[93mChatbot: Goodbye!\033[0m\n";
+        cout << "\n\t\t\t\t\033[93mChatbot:\033[0m ";
+        this_thread::sleep_for(chrono::milliseconds(500));
+        cout << "Goodbye!\n";
+        this_thread::sleep_for(chrono::milliseconds(500));
         exitProgram = true;
+        break;
+    case 0:
+        cout << "\033[93mReturning to the main menu...\033[0m\n";
         break;
     default:
         cout << "\033[91mUnexpected error.\033[0m\n";
@@ -70,9 +78,10 @@ void handleUserChoice(const int choice, bool& exitProgram) {
     }
 }
 
+// Main function
+// This function initializes the chatbot by displaying the menu and handling user input.
+// The program runs in a loop until the user chooses to exit.
 int main() {
-    cout << "\033[93mWelcome to the Chatbot!\033[0m\n";
-    displayFigletFont();
     bool exitProgram = false;
     while (!exitProgram) {
         displayMenu();
