@@ -34,7 +34,8 @@ void generalDiscussion() {
 
     string userInput;
 
-    simulateTypingAnimation("\033[93mChatbot: Hello! Type \033[34m'bye'\033[0m to exit.\n");
+    cout << "\033[93mChatbot:\033[0m ";
+    simulateTypingAnimation("Hello! Type \033[34m'bye'\033[0m to exit.\n");
 
     while (true) {
         cout << "You: ";
@@ -42,7 +43,8 @@ void generalDiscussion() {
 
         // Exit condition if the user types 'bye'
         if (userInput == "bye") {
-            simulateTypingAnimation("\033[93mChatbot: Goodbye!\033[0m\n");
+            cout << "\033[93mChatbot:\033[0m ";
+            simulateTypingAnimation("Goodbye!\n");
             break;
         }
 
@@ -59,6 +61,9 @@ void generalDiscussion() {
                 // Generate a random number between minRange and maxRange
                 const int randomChoice = dis(gen);
 
+                // Print "Chatbot:" without animation or delay
+                cout << "\033[93mChatbot:\033[0m ";
+
                 // Use switch to print the answer based on random choice
                 printAnswer(randomChoice, answers[i].first, answers[i].second);
 
@@ -69,7 +74,8 @@ void generalDiscussion() {
 
         // If no match found, the chatbot doesn't understand
         if (!questionFound) {
-            simulateTypingAnimation("Chatbot: Sorry, I don't understand that question. Try asking something like 'What is your name?' or 'How are you?'\n");
+            cout << "\033[93mChatbot:\033[0m ";
+            simulateTypingAnimation("Sorry, I don't understand that question. Try asking something like 'What is your name?' or 'How are you?'\n");
         }
     }
 }
@@ -105,13 +111,16 @@ void printAnswer(const int randomChoice, const string& firstAnswer, const string
 
     switch (randomChoice) {
         case 0:
+            cout << "\033[93mChatbot:\033[0m ";
             simulateTypingAnimation(yellow + firstAnswer + reset + "\n");
             break;
         case 1:
+            cout << "\033[93mChatbot:\033[0m ";
             simulateTypingAnimation(yellow + secondAnswer + reset + "\n");
             break;
         default:
-            simulateTypingAnimation("Chatbot: Sorry, an error occurred.\n");
+            cout << "\033[93mChatbot:\033[0m ";
+            simulateTypingAnimation("Sorry, an error occurred.\n");
     }
 }
 
