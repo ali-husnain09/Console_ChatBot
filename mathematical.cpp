@@ -11,89 +11,13 @@
 
 using namespace std;
 
-// Function to simulate random typing delay for each character
-void simulateTypingAnimation(const string& text) {
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<> dis(50, 70); // Random delay between 50ms to 70ms
-
-    for (char c : text) {
-        cout << c << flush; // Print each character without a newline
-        this_thread::sleep_for(chrono::milliseconds(dis(gen))); // Wait for a random time
-    }
-    this_thread::sleep_for(chrono::seconds(1)); // Add an additional 1-second delay after each message
-}
-
-// Function to validate if a string represents a valid number
-bool isValidNumber(const string& str) {
-    if (str.empty()) return false;
-
-    stringstream ss(str);
-    double d;
-    ss >> d;
-    return ss.eof() && !ss.fail(); // Checks if the conversion is successful and no extra characters
-}
-
-// Helper function to parse input and extract words and numbers
-void parseInput(const string& input, vector<string>& words, vector<int>& numbers) {
-    stringstream ss(input);
-    string word;
-
-    while (ss >> word) {
-        words.push_back(word);
-        if (isValidNumber(word)) {
-            numbers.push_back(stoi(word));
-        }
-    }
-}
-
-// Function to identify the operation based on input words
-string identifyOperation(const vector<string>& words, const vector<string>& additions, const vector<string>& subtractions, const vector<string>& multiplications, const vector<string>& divisions, vector<int>& numbers) {
-    string operation;
-
-    for (const auto& w : words) {
-        if (ranges::find(additions, w) != additions.end()) {
-            operation = "Addition";
-        } else if (ranges::find(subtractions, w) != subtractions.end()) {
-            if (ranges::find(words, "from") != words.end() && numbers.size() >= 2) {
-                swap(numbers[0], numbers[1]);
-            }
-            operation = "Subtraction";
-        } else if (ranges::find(multiplications, w) != multiplications.end()) {
-            operation = "Multiplication";
-        } else if (ranges::find(divisions, w) != divisions.end()) {
-            operation = "Division";
-        }
-    }
-    return operation;
-}
-
-// Function to perform the mathematical operation
-double performOperation(const string& operation, vector<int>& numbers) {
-    if (operation == "Addition") {
-        return accumulate(numbers.begin(), numbers.end(), 0);
-    } else if (operation == "Subtraction") {
-        double result = numbers[0];
-        for (size_t i = 1; i < numbers.size(); ++i) {
-            result -= numbers[i];
-        }
-        return result;
-    } else if (operation == "Multiplication") {
-        double result = 1;
-        for (int num : numbers) {
-            result *= num;
-        }
-        return result;
-    } else if (operation == "Division") {
-        double result = numbers[0];
-        for (size_t i = 1; i < numbers.size(); ++i) {
-            result /= numbers[i];
-        }
-        return result;
-    } else {
-        return numeric_limits<double>::quiet_NaN(); // Return NaN for unsupported operations
-    }
-}
+// Function prototypes
+void simulateTypingAnimation(const string& text);
+bool isValidNumber(const string& str);
+void parseInput(const string& input, vector<string>& words, vector<int>& numbers);
+string identifyOperation(const vector<string>& words, const vector<string>& additions, const vector<string>& subtractions, const vector<string>& multiplications, const vector<string>& divisions, vector<int>& numbers);
+double performOperation(const string& operation, vector<int>& numbers);
+void mathematicalOperations();
 
 // Main function for mathematical operations
 void mathematicalOperations() {
@@ -161,5 +85,85 @@ void mathematicalOperations() {
 
         cout << "\033[93mChatbot:\033[0m ";
         simulateTypingAnimation(resultMessage.str());
+    }
+}
+
+// Function definitions
+void simulateTypingAnimation(const string& text) {
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dis(50, 70); // Random delay between 50ms to 70ms
+
+    for (char c : text) {
+        cout << c << flush; // Print each character without a newline
+        this_thread::sleep_for(chrono::milliseconds(dis(gen))); // Wait for a random time
+    }
+    this_thread::sleep_for(chrono::seconds(1)); // Add an additional 1-second delay after each message
+}
+
+bool isValidNumber(const string& str) {
+    if (str.empty()) return false;
+
+    stringstream ss(str);
+    double d;
+    ss >> d;
+    return ss.eof() && !ss.fail(); // Checks if the conversion is successful and no extra characters
+}
+
+void parseInput(const string& input, vector<string>& words, vector<int>& numbers) {
+    stringstream ss(input);
+    string word;
+
+    while (ss >> word) {
+        words.push_back(word);
+        if (isValidNumber(word)) {
+            numbers.push_back(stoi(word));
+        }
+    }
+}
+
+string identifyOperation(const vector<string>& words, const vector<string>& additions, const vector<string>& subtractions, const vector<string>& multiplications, const vector<string>& divisions, vector<int>& numbers) {
+    string operation;
+
+    for (const auto& w : words) {
+        if (ranges::find(additions, w) != additions.end()) {
+            operation = "Addition";
+        } else if (ranges::find(subtractions, w) != subtractions.end()) {
+            if (ranges::find(words, "from") != words.end() && numbers.size() >= 2) {
+                swap(numbers[0], numbers[1]);
+            }
+            operation = "Subtraction";
+        } else if (ranges::find(multiplications, w) != multiplications.end()) {
+            operation = "Multiplication";
+        } else if (ranges::find(divisions, w) != divisions.end()) {
+            operation = "Division";
+        }
+    }
+    return operation;
+}
+
+double performOperation(const string& operation, vector<int>& numbers) {
+    if (operation == "Addition") {
+        return accumulate(numbers.begin(), numbers.end(), 0);
+    } else if (operation == "Subtraction") {
+        double result = numbers[0];
+        for (size_t i = 1; i < numbers.size(); ++i) {
+            result -= numbers[i];
+        }
+        return result;
+    } else if (operation == "Multiplication") {
+        double result = 1;
+        for (int num : numbers) {
+            result *= num;
+        }
+        return result;
+    } else if (operation == "Division") {
+        double result = numbers[0];
+        for (size_t i = 1; i < numbers.size(); ++i) {
+            result /= numbers[i];
+        }
+        return result;
+    } else {
+        return numeric_limits<double>::quiet_NaN(); // Return NaN for unsupported operations
     }
 }
