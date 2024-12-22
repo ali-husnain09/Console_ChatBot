@@ -1,8 +1,6 @@
 # Chatbot App
 ![Screenshot from 2024-12-22 03-39-13](https://github.com/user-attachments/assets/b8a0b0f6-1df7-40eb-a751-af847fffadad)
 
-
-![Chatbot Banner](![Screenshot from 2024-12-22 03-11-58](https://github.com/user-attachments/assets/67b34436-a5dc-489d-89d1-bac015ee4f0a))  
 *An engaging and interactive chatbot that combines mathematical operations and general discussions.*
 
 ---
@@ -107,7 +105,7 @@ Chatbot_App/
 
 ## Screenshots
 
-![Chatbot Interface](./assests/main2.png)  
+![Screenshot from 2024-12-22 03-11-58](https://github.com/user-attachments/assets/67b34436-a5dc-489d-89d1-bac015ee4f0a)
 *Figure: Interactive chatbot menu with ANSI Shadow font.*
 
 ---
