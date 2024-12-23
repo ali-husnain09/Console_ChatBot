@@ -24,12 +24,12 @@ void mathematicalOperations() {
     cout << "\033[93mChatbot:\033[0m ";
     simulateTypingAnimation("Welcome to Mathematical Operations!\n");
     cout << "\033[93mChatbot:\033[0m ";
-    simulateTypingAnimation("Type your query (e.g., 'add 5 and 3' or '9+8') or enter \033[34m'0'\033[0m to return to the main menu.\n");
+    simulateTypingAnimation("Type your query (e.g., 'add 5 and 3') or enter \033[34m'0'\033[0m to return to the main menu.\n");
 
     vector<string> additions = {"sum", "add", "plus", "addition", "+"};
     vector<string> subtractions = {"subtract", "minus", "-", "subtraction", "sub", "cut"};
     vector<string> multiplications = {"multiply", "times", "multiplication","*"};
-    vector<string> divisions = {"divide", "divided", "/"};
+    vector<string> divisions = {"divide", "divided" , "/"};
 
     string input;
     while (true) {
@@ -111,22 +111,13 @@ bool isValidNumber(const string& str) {
 }
 
 void parseInput(const string& input, vector<string>& words, vector<int>& numbers) {
-    string tempWord;
-    for (char c : input) {
-        if (isdigit(c) || c == '.' || c == '+' || c == '-' || c == '*' || c == '/') {
-            tempWord += c; // Accumulate valid characters into a word
-        } else if (!tempWord.empty()) {
-            words.push_back(tempWord);
-            if (isValidNumber(tempWord)) {
-                numbers.push_back(stoi(tempWord));
-            }
-            tempWord.clear();
-        }
-    }
-    if (!tempWord.empty()) { // Add any remaining word
-        words.push_back(tempWord);
-        if (isValidNumber(tempWord)) {
-            numbers.push_back(stoi(tempWord));
+    stringstream ss(input);
+    string word;
+
+    while (ss >> word) {
+        words.push_back(word);
+        if (isValidNumber(word)) {
+            numbers.push_back(stoi(word));
         }
     }
 }
