@@ -12,7 +12,7 @@
 using namespace std;
 
 // Function prototypes
-void simulateTypingAnimations(const string& text);
+void simulateTypingAnimation(const string& text);
 bool isValidNumber(const string& str);
 void parseInput(const string& input, vector<string>& words, vector<int>& numbers);
 string identifyOperation(const vector<string>& words, const vector<string>& additions, const vector<string>& subtractions, const vector<string>& multiplications, const vector<string>& divisions, vector<int>& numbers);
@@ -22,14 +22,14 @@ void mathematicalOperations();
 // Main function for mathematical operations
 void mathematicalOperations() {
     cout << "\033[93mChatbot:\033[0m ";
-    simulateTypingAnimations("Welcome to Mathematical Operations!\n");
+    simulateTypingAnimation("Welcome to Mathematical Operations!\n");
     cout << "\033[93mChatbot:\033[0m ";
-    simulateTypingAnimations("Type your query (e.g., 'add 5 and 3') or enter \033[34m'0'\033[0m to return to the main menu.\n");
+    simulateTypingAnimation("Type your query (e.g., 'add 5 and 3' or '9+8') or enter \033[34m'0'\033[0m to return to the main menu.\n");
 
     vector<string> additions = {"sum", "add", "plus", "addition", "+"};
     vector<string> subtractions = {"subtract", "minus", "-", "subtraction", "sub", "cut"};
     vector<string> multiplications = {"multiply", "times", "multiplication","*"};
-    vector<string> divisions = {"divide", "divided" , "/"};
+    vector<string> divisions = {"divide", "divided", "/"};
 
     string input;
     while (true) {
@@ -42,7 +42,7 @@ void mathematicalOperations() {
 
         if (input == "0") {
             cout << "\033[93mChatbot:\033[0m ";
-            simulateTypingAnimations("Returning to the main menu...\n");
+            simulateTypingAnimation("Returning to the main menu...\n");
             break;
         }
 
@@ -52,7 +52,7 @@ void mathematicalOperations() {
 
         if (numbers.size() < 2) {
             cout << "\033[93mChatbot:\033[0m ";
-            simulateTypingAnimations("Error - Could not find two valid numbers in the input.\n");
+            simulateTypingAnimation("Error - Could not find two valid numbers in the input.\n");
             continue;
         }
 
@@ -60,13 +60,13 @@ void mathematicalOperations() {
 
         if (operation.empty()) {
             cout << "\033[93mChatbot:\033[0m ";
-            simulateTypingAnimations("Sorry, I didn't understand the operation.\n");
+            simulateTypingAnimation("Sorry, I didn't understand the operation.\n");
             continue;
         }
 
         if (operation == "Division" && find(numbers.begin() + 1, numbers.end(), 0) != numbers.end()) {
             cout << "\033[93mChatbot:\033[0m ";
-            simulateTypingAnimations("Error - Division by zero.\n");
+            simulateTypingAnimation("Error - Division by zero.\n");
             continue;
         }
 
@@ -84,12 +84,12 @@ void mathematicalOperations() {
         }
 
         cout << "\033[93mChatbot:\033[0m ";
-        simulateTypingAnimations(resultMessage.str());
+        simulateTypingAnimation(resultMessage.str());
     }
 }
 
 // Function definitions
-void simulateTypingAnimations(const string& text) {
+void simulateTypingAnimation(const string& text) {
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dis(50, 70); // Random delay between 50ms to 70ms
@@ -98,7 +98,7 @@ void simulateTypingAnimations(const string& text) {
         cout << c << flush; // Print each character without a newline
         this_thread::sleep_for(chrono::milliseconds(dis(gen))); // Wait for a random time
     }
-    this_thread::sleep_for(chrono::seconds(1)); // Add 1-second delay after each message
+    this_thread::sleep_for(chrono::seconds(1)); // Add an additional 1-second delay after each message
 }
 
 bool isValidNumber(const string& str) {
@@ -111,13 +111,22 @@ bool isValidNumber(const string& str) {
 }
 
 void parseInput(const string& input, vector<string>& words, vector<int>& numbers) {
-    stringstream ss(input);
-    string word;
-
-    while (ss >> word) {
-        words.push_back(word);
-        if (isValidNumber(word)) {
-            numbers.push_back(stoi(word));
+    string tempWord;
+    for (char c : input) {
+        if (isdigit(c) || c == '.' || c == '+' || c == '-' || c == '*' || c == '/') {
+            tempWord += c; // Accumulate valid characters into a word
+        } else if (!tempWord.empty()) {
+            words.push_back(tempWord);
+            if (isValidNumber(tempWord)) {
+                numbers.push_back(stoi(tempWord));
+            }
+            tempWord.clear();
+        }
+    }
+    if (!tempWord.empty()) { // Add any remaining word
+        words.push_back(tempWord);
+        if (isValidNumber(tempWord)) {
+            numbers.push_back(stoi(tempWord));
         }
     }
 }
